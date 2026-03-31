@@ -1,0 +1,5 @@
+services:
+  api:
+    image: karabaharesu/apirepo:inference
+    ports:
+      - "8000:8000"
