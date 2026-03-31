@@ -3,3 +3,21 @@ services:
     image: karabaharesu/apirepo:inference
     ports:
       - "8000:8000"
+    environment:
+      - MLFLOW_TRACKING_URI=http://host.docker.internal:5000
+      - MLFLOW_S3_ENDPOINT_URL=http://host.docker.internal:9000
+      - AWS_ACCESS_KEY_ID=admin
+      - AWS_SECRET_ACCESS_KEY=supersecret
+      - PASSWORD=valentasecret
+
+  locust:
+    build:
+      context: .
+      dockerfile: Dockerfile.locust
+    container_name: locust
+    ports:
+      - "8089:8089"
+    depends_on:
+      - api
+    environment:
+      - LOCUST_HOST=http://api:8000
