@@ -9,7 +9,16 @@ services:
       - AWS_ACCESS_KEY_ID=admin
       - AWS_SECRET_ACCESS_KEY=supersecret
       - PASSWORD=valentasecret
-
+    deploy:
+      mode: replicated
+      replicas: 3
+      resources:
+        limits:
+          cpus: '4'
+          memory: 10000M
+        reservations:
+          cpus: '2'
+          memory: 5000M
   locust:
     build:
       context: .
